@@ -44,7 +44,7 @@ func (r *UserRepository) GetUser(params dto.UserParams) (*models.User, error) {
 	query := r.db.Model(&models.User{})
 
 	if params.UserID != "" {
-		query = query.Where("id = ?", params.UserID)
+		query = query.Where("user_id = ?", params.UserID)
 	}
 	if params.Email != "" {
 		query = query.Where("email = ?", params.Email)
