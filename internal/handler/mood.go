@@ -18,7 +18,9 @@ func (r *Rest) CreateMood(c *gin.Context) {
 		utils.ResponseError(c, http.StatusBadRequest, "gagal melakukan input", err)
 		return
 	}
-
+	
+	utils.SanitizeStruct(&req)
+	
 	err = r.services.MoodService.CreateMood(req.UserID, &req)
 	
 	if err != nil {

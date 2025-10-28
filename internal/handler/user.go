@@ -16,6 +16,8 @@ func (r *Rest) Register(c *gin.Context) {
 		return
 	}
 
+	utils.SanitizeStruct(&req)
+	
 	err = r.services.UserService.CreateUser(req)
 	if err != nil {
 		if err.Error() == "email sudah terdaftar" {
