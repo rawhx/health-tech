@@ -75,7 +75,7 @@ Jalankan
 
 -  **Upload Mood**
 
-     Endpoint : `/api/v1/moods`
+     Endpoint : `/api/v1/mood`
 
     Method : `POST`
     
@@ -102,7 +102,7 @@ Jalankan
 
 - Get Mood
 
-    Endpoint : `/api/v1/moods/:id`
+    Endpoint : `/api/v1/mood/:id`
 
     Method : `GET`
 
@@ -124,7 +124,7 @@ Jalankan
 
 - Get Summary
 
-    Endpoint : `/api/v1/moods/summary/:id`
+    Endpoint : `/api/v1/mood/summary/:id`
     
     Method : `GET`
 
@@ -132,7 +132,7 @@ Jalankan
 
     | Query | Value |
     | ----- |----- |
-    | periode | week / month |
+    | period | week / month |
 
     Response :
 
