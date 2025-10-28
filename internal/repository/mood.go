@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"errors"
 	"health-tech/models"
 	"health-tech/pkg/pagination"
 	"time"
@@ -23,7 +24,7 @@ func NewMoodRepository(db *gorm.DB) IMoodRepository {
 }
 
 func (r *MoodRepository) CreateMood(request *models.Mood) error {
-	return r.db.Create(request).Error
+	return r.db.CreateInBatches(request, 1000).Error
 }
 
 func (r *MoodRepository) GetUserMoods(userID string, params pagination.Params) ([]models.Mood, int64, error) {
@@ -49,8 +50,18 @@ func (r *MoodRepository) GetUserMoods(userID string, params pagination.Params) (
 func (r *MoodRepository) GetMoodSummary(userID string, startDate, endDate time.Time) (float64, int64, error) {
 	var avg float64
 	var count int64
-
+	
 	err := r.db.Model(&models.Mood{}).
+		Where("id_user = ? AND date BETWEEN ? AND ?", userID, startDate, endDate).
+		Count(&count).Error
+	if err != nil {
+		return 0, 0, err
+	}
+	if count == 0 {
+		return 0, 0, errors.New("data summary tidak ditemukan")
+	}
+
+	err = r.db.Model(&models.Mood{}).
 		Select("AVG(mood_score)").
 		Where("id_user = ? AND date BETWEEN ? AND ?", userID, startDate, endDate).
 		Scan(&avg).Error
@@ -58,12 +69,6 @@ func (r *MoodRepository) GetMoodSummary(userID string, startDate, endDate time.T
 		return 0, 0, err
 	}
 
-	err = r.db.Model(&models.Mood{}).
-		Where("id_user = ? AND date BETWEEN ? AND ?", userID, startDate, endDate).
-		Count(&count).Error
-	if err != nil {
-		return 0, 0, err
-	}
 
 	return avg, count, nil
 }

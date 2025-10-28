@@ -81,17 +81,12 @@ func (s *MoodService) GetMoodSummary(userID string, period string) (dto.GetSumma
 	now := time.Now()
 	var startDate, endDate time.Time
 
-	existing, err := s.UserRepository.GetUser(dto.UserParams{UserID: userID})
-	if err != nil {
-		return dto.GetSummary{}, err
-	}
-	if existing == nil {
-		return dto.GetSummary{}, errors.New("data tidak ditemukan")
-	}
-
 	user, err := s.UserRepository.GetUser(dto.UserParams{UserID: userID})
 	if err != nil {
 		return dto.GetSummary{}, err
+	}
+	if user == nil {
+		return dto.GetSummary{}, errors.New("data tidak ditemukan")
 	}
 
 	switch period {

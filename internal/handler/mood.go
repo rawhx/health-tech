@@ -72,6 +72,9 @@ func (r *Rest) GetMoodSummary(c *gin.Context) {
 		if err.Error() == "data tidak ditemukan" {
 			utils.ResponseError(c, http.StatusNotFound, "data user tidak ditemukan", err)
 			return
+		} else if err.Error() == "data summary tidak ditemukan" {
+			utils.ResponseError(c, http.StatusNotFound, "data summary tidak ditemukan", err)
+			return
 		}
 		utils.ResponseError(c, http.StatusInternalServerError, "internal server error", err)
 		return	
