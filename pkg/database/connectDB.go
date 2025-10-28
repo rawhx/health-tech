@@ -34,13 +34,10 @@ func ConnectDB() (*gorm.DB, error) {
 		return nil, fmt.Errorf("failed to get generic database object: %w", err)
 	}
 
-	maxIdle := getEnvAsInt("DB_MAX_IDLE_CONNS", 10)
-	maxOpen := getEnvAsInt("DB_MAX_OPEN_CONNS", 100)
-	lifetime := getEnvAsDuration("DB_CONN_MAX_LIFETIME", time.Hour)
-
-	sqlDB.SetMaxIdleConns(maxIdle)
-	sqlDB.SetMaxOpenConns(maxOpen)
-	sqlDB.SetConnMaxLifetime(lifetime)
+	sqlDB.SetMaxIdleConns(100)
+	sqlDB.SetMaxOpenConns(300)
+	sqlDB.SetConnMaxLifetime(45 * time.Minute)
+	sqlDB.SetConnMaxIdleTime(5 * time.Minute)
 	
 	Connection = db
 	return Connection, nil

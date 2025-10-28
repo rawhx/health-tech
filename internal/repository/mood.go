@@ -24,7 +24,7 @@ func NewMoodRepository(db *gorm.DB) IMoodRepository {
 }
 
 func (r *MoodRepository) CreateMood(request *models.Mood) error {
-	return r.db.CreateInBatches(request, 1000).Error
+	return r.db.Create(request).Error
 }
 
 func (r *MoodRepository) GetUserMoods(userID string, params pagination.Params) ([]models.Mood, int64, error) {
