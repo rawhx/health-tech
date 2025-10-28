@@ -46,7 +46,7 @@ func (r *Rest) Login(c *gin.Context) {
 			utils.ResponseError(c, http.StatusBadRequest, "email atau password salah", err)
 			return
 		} else if err.Error() == "data tidak ditemukan" {
-			utils.ResponseError(c, http.StatusNotFound, "akun tidak ditemukan", err)
+			utils.ResponseError(c, http.StatusNotFound, "data user tidak ditemukan", err)
 			return
 		} else if err.Error() == "gagal membuat token" {
 			utils.ResponseError(c, http.StatusInternalServerError, "gagal membuat token", err)

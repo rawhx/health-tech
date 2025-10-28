@@ -43,7 +43,7 @@ func (r *Rest) GetUserMoods(c *gin.Context) {
 	data, total, err := r.services.MoodService.GetUserMoods(userID, params)
 	if err != nil {
 		if err.Error() == "data tidak ditemukan" {
-			utils.ResponseError(c, http.StatusNotFound, "akun tidak ditemukan", err)
+			utils.ResponseError(c, http.StatusNotFound, "data user tidak ditemukan", err)
 			return
 		}
 		utils.ResponseError(c, http.StatusInternalServerError, "internal server error", err)
@@ -68,7 +68,7 @@ func (r *Rest) GetMoodSummary(c *gin.Context) {
 	dt, err := r.services.MoodService.GetMoodSummary(userID, period)
 	if err != nil {
 		if err.Error() == "data tidak ditemukan" {
-			utils.ResponseError(c, http.StatusNotFound, "akun tidak ditemukan", err)
+			utils.ResponseError(c, http.StatusNotFound, "data user tidak ditemukan", err)
 			return
 		}
 		utils.ResponseError(c, http.StatusInternalServerError, "internal server error", err)
