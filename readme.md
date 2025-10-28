@@ -37,8 +37,8 @@ Penggunaan database menggunakan MySQL karena,
 Clone project
 
 ```bash
-  git clone https://github.com/rawhx/health_tech
-  cd health_tech
+  git clone https://github.com/rawhx/health-tech
+  cd health-tech
 ```
 
 Setup Environment
@@ -52,12 +52,6 @@ or
 ```bash
     copy .env.example .env
 ```    
-
-Install Dependensi
-
-```bash
-    go mod tidy
-```
 
 Jalankan 
 
