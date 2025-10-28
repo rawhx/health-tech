@@ -26,11 +26,15 @@ func NewRest(services *services.Service, middleware middleware.Middleware) *Rest
 func (r *Rest) MountEndpoint() {
 	r.router.Use(r.middleware.Cors())
 
-	routerGroup := r.router.Group("api/v1")
+	routerGroup := r.router.Group("api/v1", r.middleware.APIKeyAuthMiddleware())
 	auth := routerGroup.Group("/auth")
 	auth.POST("/register", r.Register)
 	auth.POST("/login", r.Login)
 
+	user := routerGroup.Group("/mood")
+	user.POST("/", r.CreateMood)
+	user.GET("/:user_id", r.GetUserMoods)
+	user.GET("/summary/:user_id", r.GetMoodSummary)
 }
 
 func (r *Rest) Run() {

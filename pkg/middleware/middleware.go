@@ -9,6 +9,7 @@ import (
 
 type Middleware interface {
 	AuthenticateUser(c *gin.Context)
+	APIKeyAuthMiddleware() gin.HandlerFunc
 	Cors() gin.HandlerFunc
 }
 
