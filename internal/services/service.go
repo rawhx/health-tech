@@ -7,11 +7,12 @@ import (
 
 type Service struct {
 	UserService IUserService
-	jwtAuth     jwt.Interface
+	MoodService IMoodService
 }
 
 func NewService(repository *repository.Repository, jwtAuth jwt.Interface) *Service {
 	return &Service{
 		UserService: NewUserService(repository.UserRepository, jwtAuth),
+		MoodService: NewMoodService(repository.MoodRepository, repository.UserRepository),
 	}
 }
